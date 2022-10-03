@@ -11,7 +11,7 @@
     @csrf
     @isset($update)
         @method("PUT")
-    @endi
+    @endif
 
     <div class="mb-6">
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black-300">Nombre de la pelicula: </label>

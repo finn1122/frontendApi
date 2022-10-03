@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Config;
 
 //importar libreria para validar request
 use Validator;
@@ -11,6 +12,10 @@ use Validator;
 
 class MovieController extends Controller
 {
+
+
+    
+    
     public function index(){
         
         $token = '1|39vaZmsyhxBcUo2eqTIvuwJmi6RknPhp06rZNAQd';

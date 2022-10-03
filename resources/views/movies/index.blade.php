@@ -34,6 +34,9 @@
                     Fecha
                 </th>
                 <th scope="col" class="py-3 px-6">
+                    Estado
+                </th>
+                <th scope="col" class="py-3 px-6">
                     Actiones
                 </th>
             </tr>
@@ -54,6 +57,16 @@
                 <td class="py-4 px-6">
                     {{"$movie[publication_date]"}}
                 </td>
+                @if("$movie[active]"  == 1) 
+                <td class="py-4 px-6">
+                    Activado
+                </td>
+                @endif
+                @if("$movie[active]"  == 0) 
+                <td class="py-4 px-6">
+                    Desactivado
+                </td>
+                @endif
                 <td class="py-4 px-6">
                     <a  href="{{ route("movies.edit", [ "movie" =>  "$movie[id]" ]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ __("Editar") }}</a>
                     <a 

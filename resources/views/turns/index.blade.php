@@ -45,9 +45,16 @@
                 <td class="py-4 px-6">
                     {{"$turn[turn]"}}
                 </td>
+                @if("$turn[active]"  == 1) 
                 <td class="py-4 px-6">
-                    {{"$turn[active]"}}
+                    Activado
                 </td>
+                @endif
+                @if("$turn[active]"  == 0) 
+                <td class="py-4 px-6">
+                    Desactivado
+                </td>
+                @endif
 
                 <td class="py-4 px-6">
                     <a  href="{{ route("turns.edit", [ "turn" =>  "$turn[id]" ]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ __("Editar") }}</a>
