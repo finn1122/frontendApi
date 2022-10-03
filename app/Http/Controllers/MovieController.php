@@ -5,42 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
+//importar libreria para validar request
+use Validator;
+
 
 class MovieController extends Controller
 {
     public function index(){
         
-        //$movies = HTTP::get('http://127.0.0.1:8001/api/v2/movies');
-        //$token = '1|UiwettJXITy8hPq84WNU5FZUQ5u0GzeBnCaCc1rb';
-        //$movies = Http::withToken($token)->get('http://127.0.0.1:8001/api/v2/movies');
-    
-        //$usuarios = $movies->json();
-
-        //dd($usuarios);
-
-        $token = '1|RLGhLeYnrqlkytoqizqlg1uMqHLaZHxoSCowPlob';
-
-        /*$httpClient = new Client();
-
-        $response = $httpClient->get(
-            'http://127.0.0.1:8001/api/v2/movies?bearer',
-            [
-                RequestOptions::HEADERS => [
-                    'Accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . $token,
-                ]
-            ]
-        );
-
-        $moviesArray = $response->getBody();
-
-        $response->getHeader('Content-Length');
-
-        $data = $response->json();
-
-        echo $data;*/
-
-        $moviesArray = Http::withToken($token)->get('http://127.0.0.1:8001/api/v2/movies');
+        $token = '1|39vaZmsyhxBcUo2eqTIvuwJmi6RknPhp06rZNAQd';
+        $moviesArray = Http::withToken($token)->get('http://127.0.0.1:8000/api/v2/movies');
         return view('movies.index', compact('moviesArray'));
 
         //return view('movies.index');
@@ -55,10 +29,10 @@ class MovieController extends Controller
 
     public function edit($movie){
 
-        $token = '1|RLGhLeYnrqlkytoqizqlg1uMqHLaZHxoSCowPlob';
+        $token = '1|39vaZmsyhxBcUo2eqTIvuwJmi6RknPhp06rZNAQd';
 
         $update = true;
-        $moviesArray = Http::withToken($token)->get('http://127.0.0.1:8001/api/v2/movies/'.$movie)->collect();
+        $moviesArray = Http::withToken($token)->get('http://127.0.0.1:8000/api/v2/movies/'.$movie)->collect();
         $title = __("Editar pelicula");
         $textButton = __("Guardar");
         $route = route("movies.update", [ "movie" => $movie ]);
@@ -67,21 +41,22 @@ class MovieController extends Controller
     }
 
     public function update(Request $request, $movie){
-        $token = '1|RLGhLeYnrqlkytoqizqlg1uMqHLaZHxoSCowPlob';
+        $token = '1|39vaZmsyhxBcUo2eqTIvuwJmi6RknPhp06rZNAQd';
 
         //falta mostrar un mensaje de que se actualizo con exito
-        Http::withToken($token)->put('http://127.0.0.1:8001/api/v2/movies/'.$movie.'?'.$request);
+        $validator = Http::withToken($token)->put('http://127.0.0.1:8000/api/v2/movies/'.$movie.'?'.$request);
+
         return  back()->with("success", __("¡Pelicula actualizado!"));
         //echo $request->publication_date;
     }
 
     public function store(Request $request){
-        $token = '1|RLGhLeYnrqlkytoqizqlg1uMqHLaZHxoSCowPlob';
+        $token = '1|39vaZmsyhxBcUo2eqTIvuwJmi6RknPhp06rZNAQd';
         $name = $request->name;
         $publication_date = $request->publication_date;
         $image = $request->image;
 
-        Http::withToken($token)->post('http://127.0.0.1:8001/api/v2/movies/?'.$request);
+        Http::withToken($token)->post('http://127.0.0.1:8000/api/v2/movies/?'.$request);
         return  back()->with("success", __("¡Pelicula guardada!"));
 
         
@@ -93,28 +68,11 @@ class MovieController extends Controller
     }
 
     public function destroy($id){
-        $token = '1|RLGhLeYnrqlkytoqizqlg1uMqHLaZHxoSCowPlob';
+        $token = '1|39vaZmsyhxBcUo2eqTIvuwJmi6RknPhp06rZNAQd';
 
-        Http::withToken($token)->delete('http://127.0.0.1:8001/api/v2/movies/'.$id);
+        Http::withToken($token)->delete('http://127.0.0.1:8000/api/v2/movies/'.$id);
         return  back()->with("success", __("¡Pelicula eliminada!"));
     }
 
-    public function assign(Request $request){
-
-        $id = $request->movie;
-        $textButton = 'Asignar';
-        $route = route("movies.guardarAsignacion");
-        $token = '1|RLGhLeYnrqlkytoqizqlg1uMqHLaZHxoSCowPlob';
-        $movieArray = Http::withToken($token)->get('http://127.0.0.1:8001/api/v2/movies/'.$id)->collect();
-
-        $turnsArray = Http::withToken($token)->get('http://127.0.0.1:8001/api/v2/turns');
-
-        //echo $movieArray;
-        return view("movies.assign", compact("movieArray", "textButton", "turnsArray", "route"));
-    }
-
-    public function guardarAsignacion(Request $request){
-
-        
-    }
+    
 }

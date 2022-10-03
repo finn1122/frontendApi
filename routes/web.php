@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\TurnController;
+use App\Http\Controllers\MovieTurnController;
 
 
 /*
@@ -33,10 +34,12 @@ Route::middleware([
 
 Route::resource('movies', MovieController::class);
 Route::resource('turns', TurnController::class);
+Route::resource('movieTurn', MovieTurnController::class);
+
 
 //Route::get('movies/assign', MovieController::class)->name('movies.assign');
 
-Route::get('/assign/turn', [MovieController::class, 'assign'])->name('movies.assign');
-Route::post('/assign/guardar', [MovieController::class, 'guardarAsignacion'])->name('movies.guardarAsignacion');
+//Route::get('/assign/turn', [MovieController::class, 'assign'])->name('movies.assign');
+//Route::post('/movieTurn/guardar', [MovieTurnController::class, 'guardarAsignacion'])->name('movies.guardarAsignacion');
 
 

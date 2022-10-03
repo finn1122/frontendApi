@@ -10,12 +10,11 @@
     <p>Welcome to this beautiful movies panel.</p>
     <div class="flex justify-center flex-wrap bg-gray-200 p-4 mt-5">
     <div class="text-center">
-        <h1 class="mb-5">{{__("Peliculas") }}</h1>
-        <a href="{{ route("movies.create") }}" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-            {{__("Crear nueva pelicula")}}
+        <h1 class="mb-5">{{__("Peliculas y turnos") }}</h1>
+        <a href="{{ route("movieTurn.create") }}" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            {{__("Asignar nuevo turno pelicula")}}
         </a>
     </div>
-</div>
 
 
 <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -29,10 +28,7 @@
                     Pelicula
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Imagen
-                </th>
-                <th scope="col" class="py-3 px-6">
-                    Fecha
+                    Turno
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Actiones
@@ -40,38 +36,33 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($moviesArray['data'] as $movie)
+        @foreach($movieTurnsArray['data'] as $movieTurn)
 
             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{"$movie[id]"}}
+                    {{"$movieTurn[id]"}}
                 </th>
                 <td class="py-4 px-6">
-                    {{"$movie[name]"}}
+                    {{"$movieTurn[movie_id]"}}
                 </td>
                 <td class="py-4 px-6">
-                    {{"$movie[image]"}}
+                    {{"$movieTurn[turn_id]"}}
                 </td>
+
                 <td class="py-4 px-6">
-                    {{"$movie[publication_date]"}}
-                </td>
-                <td class="py-4 px-6">
-                    <a  href="{{ route("movies.edit", [ "movie" =>  "$movie[id]" ]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ __("Editar") }}</a>
+                    <a  href="{{ route("movieTurn.edit", [ "movieTurn" =>  "$movieTurn[id]" ]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ __("Editar") }}</a>
                     <a 
                     href="#"  
                     class="text-red-400"
                     onclick="event.preventDefault();
-                        document.getElementById('delete-movie-{{ "$movie[id]" }}-form').submit();"
+                        document.getElementById('delete-movieTurn-{{ "$movieTurn[id]" }}-form').submit();"
                     > {{ __("Eliminar") }}
                     </a>
 
-                    <form id="delete-movie-{{ "$movie[id]" }}-form" action="{{ route("movies.destroy", ["movie" => "$movie[id]"]) }}" method="POST" class="hidden">
+                    <form id="delete-movieTurn-{{ "$movieTurn[id]" }}-form" action="{{ route("movieTurn.destroy", ["movieTurn" => "$movieTurn[id]"]) }}" method="POST" class="hidden">
                         @method("DELETE")
                         @csrf
                     </form>
-
-                    <a  href="{{ route("movieTurn.create", [ "movie" =>  "$movie[id]" ]) }}" class="font-medium text-blue-600 dark:text-blue-700 hover:underline">{{ __("Asignar") }}</a>
-
                 </td>
             </tr>
         @endforeach
